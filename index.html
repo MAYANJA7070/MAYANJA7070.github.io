@@ -179,9 +179,23 @@
 
     <script>
       $(document).ready(function () {
-        // ThingSpeak Channel ID and API Key
+        // ThingSpeak Channel ID and API Key fod weight
         var channelID = 2498323;
         var apiKey = "AGF1F3WRSUZPEJAQ";
+
+        // second channel food motor status
+        var channelID1 = 2503688;
+        var apiKey1 = "7NM1RHQ66CPA4BOA";
+
+        //third channel for water motor status
+        var channelID2 = 2503689;
+        var apiKey2 = "18IHT3E3WGEOJI44";
+
+             //third channel for water level 
+             var channelID3 = 2503691;
+        var apiKey3 = "UMFPWZ7IQZ7IPC3A";
+
+      
         var field1Element = $("#field1");
         var field2Element = $("#field2");
         var field3Element = $("#field3");
@@ -196,15 +210,64 @@
             apiKey +
             "&results=1";
 
-          // Fetch data from ThingSpeak
-          $.getJSON(url, function (data) {
-            // Extracting field values from the response
-            var field1Value = data.feeds[0].field1;
-            var field2Value = data.feeds[0].field2;
-            var field3Value = data.feeds[0].field3;
-            var field4Value = data.feeds[0].field4;
 
-			if(field1Value==="1"){
+                     // URL to fetch data from ThingSpeak for food  motor status
+          var url1 =
+            "https://api.thingspeak.com/channels/" +
+            channelID1 +
+            "/feeds.json?api_key=" +
+            apiKey1 +
+            "&results=1";
+
+                                // URL to fetch data from ThingSpeak for water  motor status
+          var url2 =
+            "https://api.thingspeak.com/channels/" +
+            channelID2 +
+            "/feeds.json?api_key=" +
+            apiKey2 +
+            "&results=1";
+
+
+                                // URL to fetch data from ThingSpeak for water level
+          var url3 =
+            "https://api.thingspeak.com/channels/" +
+            channelID3 +
+            "/feeds.json?api_key=" +
+            apiKey3 +
+            "&results=1";
+
+                                // Fetch data from ThingSpeak
+                                $.getJSON(url, function (data) {
+            // Extracting field values from the response
+            var field3Value = data.feeds[0].field1;
+
+          });
+
+
+                    // Fetch data from ThingSpeak
+                    $.getJSON(url1, function (data1) {
+            // Extracting field values from the response
+            var field1Value = data1.feeds[0].field1;
+
+          });
+
+
+                              // Fetch data from ThingSpeak
+                              $.getJSON(url2, function (data2) {
+            // Extracting field values from the response
+            var field2Value = data2.feeds[0].field1;
+
+          });
+
+                              // Fetch data from ThingSpeak
+                              $.getJSON(url3, function (data3) {
+            // Extracting field values from the response
+            var field4Value = data3.feeds[0].field1;
+
+          });
+
+
+          if(field1Value==="1"){
 				field1Value="Motor Runing and Open";
 				var color="red";
 			} else {
@@ -229,7 +292,7 @@
 
 			document.getElementById("field1").style.backgroundColor=color;
 			document.getElementById("field2").style.backgroundColor=color1;
-          });
+
         }
 
         // Fetch data and update every second
@@ -358,43 +421,6 @@
       });
     </script>
 
-    <script>
-      $(document).ready(function () {
-        // ThingSpeak Channel ID and API Key
-        var channelID = 2498318;
-        var apiKey = "4TKFND9L0YRQYHA4";
-
-        var field1Element = $("#field11");
-        var field2Element = $("#field12");
-        var field3Element = $("#field13");
-
-        // Function to fetch data from ThingSpeak and update HTML elements
-        function fetchDataAndUpdate() {
-          // URL to fetch data from ThingSpeak
-          var url =
-            "https://api.thingspeak.com/channels/" +
-            channelID +
-            "/feeds.json?api_key=" +
-            apiKey +
-            "&results=1";
-
-          // Fetch data from ThingSpeak
-          $.getJSON(url, function (data) {
-            // Extracting field values from the response
-            var field1Value = data.feeds[0].field1;
-            var field2Value = data.feeds[0].field2;
-            var field3Value = data.feeds[0].field3;
-            // Updating HTML elements with field values
-            field1Element.text(field1Value);
-            field2Element.text(field2Value);
-            field3Element.text(field3Value);
-          });
-        }
-
-        // Fetch data and update every second
-        fetchDataAndUpdate();
-        setInterval(fetchDataAndUpdate, 1000);
-      });
-    </script>
+   
   </body>
 </html>
